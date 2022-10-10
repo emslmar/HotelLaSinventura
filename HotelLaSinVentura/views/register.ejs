@@ -1,0 +1,22 @@
+
+<%- include("header") -%>
+    <!-- Custom styles for this template -->
+    <link href="css/index.css" rel="stylesheet">
+
+    <form action="/register" method="POST" class="form-signin text-center"> 
+      <img class="mb-4" src="images/logo.png" alt="" width="72" height="72">
+      <h1 class="h3 mb-3 font-weight-normal">Create a new account</h1>
+      <p style="color: red"><%=errorMessage%></p>
+      <input type="text" name="firstName" class="form-control top" placeholder="First Name" required autofocus autocomplete="off">
+      <input type="text" name="lastName" class="form-control middle" placeholder="LastName" required autocomplete="off">
+      <input type="email" name="email" class="form-control middle" placeholder="Email" required autocomplete="off">
+      <input type="password" name="password" class="form-control middle" placeholder="Password" required autocomplete="off">
+      <input type="text" name="nationality" class="form-control middle" placeholder="Nationality" required autocomplete="off">
+      <input type="text" name="phone" class="form-control middle" placeholder="Phone Number" required autocomplete="off">
+      <input type="date" name="birthdate" class="form-control bottom" placeholder="Birthdate" required autocomplete="off">
+      <button class="btn btn-lg btn-primary btn-block" type="submit">Register</button>
+      <p class="mt-5 mb-3 text-muted">&copy; Hotel La Sin Ventura</p>
+    </form>
+
+    <%- include("footer") -%>
+
