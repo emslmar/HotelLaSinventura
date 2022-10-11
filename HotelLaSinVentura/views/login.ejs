@@ -1,13 +1,15 @@
 <%- include("header") -%>
 <!-- Custom styles for this template -->
 <link href="css/index.css" rel="stylesheet">
-    <form action="/login" method="POST" class="form-signin text-center">
-      <img class="mb-4" src="images/logo.png" alt="" width="72" height="72">
-      <h1 class="h3 mb-3 font-weight-normal">Log in to your account</h1>
-      <p style="color: red"><%=errorMessage%></p>
-      <input type="email" name="email" class="form-control middle" placeholder="Email" required autofocus>
-      <input type="password" name="password" class="form-control bottom" placeholder="Password" required>
-      <button class="btn btn-lg btn-primary btn-block" type="submit">Login</button>
-      <p class="mt-5 mb-3 text-muted">&copy; Hotel La Sin Ventura</p>
-    </form>
+<section class="container tm-home-section-1" id="more" style="padding-top: 100pt">
+  <form action="/login" method="POST" class="form-signin text-center">
+    <img class="mb-4" src="images/logo.png" alt="" width="72" height="72">
+    <h1 class="h3 mb-3 font-weight-normal">Log in to your account</h1>
+    <p style="color: red"><%=errorMessage%></p>
+    <input type="email" name="email" class="form-control middle" placeholder="Email" required autofocus style="margin-bottom: 10pt">
+    <input type="password" name="password" class="form-control bottom" placeholder="Password" required style="margin-bottom: 10pt">
+    <button class="btn btn-lg btn-primary btn-block" type="submit">Login</button>
+    <p class="mt-5 mb-3 text-muted">&copy; Hotel La Sin Ventura</p>
+  </form>
+  </section>
 <%- include("footer") -%>
