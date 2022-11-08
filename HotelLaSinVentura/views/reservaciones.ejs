@@ -1,0 +1,32 @@
+<%- include("header") -%>
+
+<table class="table">
+    <thead>
+      <tr>
+        <th scope="col">Chekin</th>
+        <th scope="col">CheckOut</th>
+        <th scope="col">Guests</th>
+        <th scope="col">Email</th>
+        <th scope="col">Single Room</th>
+        <th scope="col">Double Room</th>
+        <th scope="col">Triple Room</th>
+        <th scope="col">Price</th>
+      </tr>
+    </thead>
+    <tbody>
+        <% for(var i=0; i<reservaciones.length; i++) {%>
+      <tr>
+      <th scope="row"><%=reservaciones[i].checkin%></th>
+        <td><%=reservaciones[i].checkout%></td>
+        <td><%=reservaciones[i].guests%></td>
+        <td><%=reservaciones[i].email%></td>
+        <td><%=reservaciones[i].singleRoom%></td>
+        <td><%=reservaciones[i].doubleRoom%></td>
+        <td><%=reservaciones[i].tripleRoom%></td>
+        <td><%=reservaciones[i].price%></td>
+        </tr>
+        <%}%>
+    </tbody>
+  </table>
+
+

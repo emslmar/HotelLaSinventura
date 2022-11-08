@@ -1,0 +1,50 @@
+<%- include("header") -%>
+<br/>
+<br/>
+
+<div style="text-align:center">
+<h2>This is how we recommend you to stay at our hotel</h2>
+<h3>check in: <%=checkin%> - checkout <%=checkout%></h3>
+<h3>Guests: <%=guests%></h3>
+<br/>
+</div>
+
+<form action="/payment" method="post">
+    <input type="text" name="checkin" value=<%=checkin%> hidden>
+    <input type="text" name="checkout" value=<%=checkout%> hidden>
+    <input type="number" name="guests" value=<%=guests%> hidden>
+<div class="row row-cols-1 row-cols-md-3 g-4">
+    <% for(var i=0; i<Rooms.length; i++) {%>
+        <div class="col">
+            <div class="card h-100">
+              <img src="..." class="card-img-top" alt="...">
+              <div class="card-body">
+                <h5 class="card-title"><%=Rooms[i].type%></h5>
+                <br/>
+                <p class="card-text"><%=Rooms[i].description%></p>
+                <br/>
+                <p class="card-text">Price: <%=Rooms[i].price%></p>
+                <br/>
+                <p class="card-text">Capacity: <%=Rooms[i].capacity%></p>
+                <br/>
+                <% if (Rooms[i].type === "Single") { %>
+                    <input type="number" name=<%=Rooms[i].type%> value=<%=singleRooms%>>
+                <%}%>
+                <% if (Rooms[i].type === "Double") { %>
+                    <input type="number" name=<%=Rooms[i].type%> value=<%=doubleRooms%>>
+                <%}%>
+                <% if (Rooms[i].type === "Triple") { %>
+                    <input type="number" name=<%=Rooms[i].type%> value=<%=tripleRooms%>>
+                <%}%>
+              </div>
+            </div>
+        </div>
+    <% } %>
+    <br/>
+    <button class="btn btn-lg btn-primary btn-block" type="submit">Continue</button>
+    
+</div>
+</form>
+<br/>
+    <br/>
+<%- include("footer") -%>

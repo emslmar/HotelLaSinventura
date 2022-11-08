@@ -1,5 +1,61 @@
 <%- include("header") -%>
 
-<iframe width="350" height="430" allow="microphone;" src="https://console.dialogflow.com/api-client/demo/embedded/50caaf3f-c565-4027-a8a2-4a2be194c6aa"></iframe>
+<div class="tab-content">
+    <div role="tabpanel" class="tab-pane fade in active tm-white-bg" id="hotel">
+      <div class="tm-search-box effect2">
+      <form action="/reservation" method="post" class="hotel-search-form">
+        <div class="tm-form-inner">
+          <div class="form-group">
+                </div>
+                <div class="form-group">
+                    <div class='input-group date' id='datetimepicker1'>
+                        <input name="checkin" type='text' class="form-control" placeholder="Check-in Date" />
+                        <span class="input-group-addon">
+                            <span class="fa fa-calendar"></span>
+                        </span>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class='input-group date' id='datetimepicker2'>
+                        <input name="checkout" type='text' class="form-control" placeholder="Check-out Date" />
+                        <span class="input-group-addon">
+                            <span class="fa fa-calendar"></span>
+                        </span>
+                    </div>
+                </div>
+                <div class="form-group margin-bottom-0">
+                    <input name="guests" type='number' class="form-control" placeholder="Guests" min="1" max="6"/>
+                </div>
+        </div>              
+              <div class="form-group tm-yellow-gradient-bg text-center">
+                <button type="submit" name="submit" class="tm-yellow-btn">Check Now</button>
+              </div>  
+      </form>
+    </div>
+    </div>
+ 
+</div>
+
+
+
+<iframe style="display: block"id="chatBot" width="350" height="430" allow="microphone;" src="https://console.dialogflow.com/api-client/demo/embedded/50caaf3f-c565-4027-a8a2-4a2be194c6aa"></iframe>
+
+<button onclick="openForm()">Chatbot</button>
+
+
+<script>
+function openForm() {
+    chat = document.getElementById("chatBot")
+  if(chat.style.display == "block"){
+    document.getElementById("chatBot").style.display = "none";
+  }else{
+    document.getElementById("chatBot").style.display = "block";
+  }
+}
+
+function closeForm() {
+  document.getElementById("chatBot").style.display = "none";
+}
+</script>
 
 <%- include("footer") -%>

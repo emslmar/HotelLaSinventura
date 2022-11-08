@@ -1,5 +1,6 @@
 const express = require('express');
 const app = express();
+let Reservation = require(__dirname+'/models/reservation')
 
 const firebaseAuth = require("firebase/auth");
 const firebaseApp = require("firebase/app");
@@ -8,6 +9,20 @@ const database = require("firebase/database");
 
 let errorMessage = "";
 let isLogged = false;
+
+const mongoose = require('mongoose')
+let mongoDB = "mongodb://localhost/HotelDatabase"
+
+//connect to mongoDB
+mongoose.connect(mongoDB, {useNewUrlParser: true })
+mongoose.Promise = global.Promise
+let mongodb = mongoose.connection
+
+mongodb.on('error', console.error.bind(console, 'MongoDB connection error: '))
+
+mongodb.once('open', ()=>{
+  console.log("Connected to MongoDB")
+})
 
 // Your web app's Firebase configuration
 // For Firebase JS SDK v7.20.0 and later, measurementId is optional
@@ -144,3 +159,66 @@ app.get('/logout', function (req, res){
 app.listen(3000, function(){
     console.log("listening in port 3000");
 });
+
+let roomController = require(__dirname+'/controllers/roomController')
+let reservationController = require(__dirname+'/controllers/reservationController')
+
+app.post('/reservation', roomController.allRooms)
+
+app.post('/payment', function (req, res){
+  let single = req.body.Single
+  let double = req.body.Double
+  let triple = req.body.Triple
+  console.log(req.body.guests)
+
+  let price = single * 100 + double * 200 + triple * 300 
+
+  res.render("payment", {single: single, double: double, triple: triple, price: price, isLogged:true, checkin:req.body.checkin, checkout:req.body.checkout, guests:req.body.guests})
+
+})
+
+app.post('/succeed', function (req, res){
+
+  firebase.auth().onAuthStateChanged((user) => {
+    var user = firebase.auth().currentUser;
+    if (user) {
+      console.log("User is signed in")
+      const email = user.email;
+
+      let reservation = new Reservation({checkin:req.body.checkin, checkout:req.body.checkout, guests:req.body.guests, user:email, singleRoom:req.body.single, doubleRoom:req.body.double, tripleRoom:req.body.triple, price:req.body.price})
+
+      reservationController.createReservation(reservation)
+
+      res.send('reserva creada exitosamente')
+    } else {
+      console.log("User is not signed in")
+      res.redirect("/login")
+    }
+  });
+})
+
+app.get("/myRes",  function(req, res){
+  var user = firebase.auth().currentUser;
+    if (user) {
+      console.log("User is signed in")
+      const email = user.email;
+
+      let reservaciones = reservationController.findByEmail(email)
+      console.log(reservaciones)
+
+       res.render('reservaciones', {reservaciones: reservaciones, isLogged:true})
+
+    } else {
+      console.log("User is not signed in")
+      res.redirect("/login")
+    }
+
+
+  
+})
+
+
+
+
+
+
