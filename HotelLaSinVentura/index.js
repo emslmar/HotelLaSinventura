@@ -106,7 +106,7 @@ app.post('/login', async (req, res) => {
     const user = userCredential.user;
     isLogged = true;
     console.log("user signed in ");
-    res.redirect('/dashboard');
+    res.render('dashboard', {email: user.email, isLogged:true});
   })
   .catch((error) => {
     errorMessage = error.message;
@@ -118,15 +118,15 @@ app.post('/login', async (req, res) => {
 
 
 app.get('/', function (req, res) {
-  res.render("home", {isLogged:isLogged});
+  res.render("home", {isLogged:isLogged, email:"lol"});
 });
 
 app.get('/register', function (req, res) {
-  res.render("register", {errorMessage:errorMessage, isLogged:isLogged});
+  res.render("register", {errorMessage:errorMessage, isLogged:isLogged, email:"lol"});
 });
 
 app.get('/login', function (req, res) {
-  res.render("login", {errorMessage:errorMessage, isLogged:isLogged});
+  res.render("login", {errorMessage:errorMessage, isLogged:isLogged, email:"lol"});
 });
 
 app.get('/dashboard', function (req, res) {
@@ -134,7 +134,7 @@ app.get('/dashboard', function (req, res) {
   firebase.auth().onAuthStateChanged((user) => {
     if (user) {
       console.log("User is signed in")
-      res.render("dashboard", {user:user, isLogged:isLogged});
+      res.render("dashboard", {user:user, isLogged:isLogged, email:"lol"});
       const uid = user.uid;
       // ...
     } else {
@@ -173,7 +173,7 @@ app.post('/payment', function (req, res){
 
   let price = single * 100 + double * 200 + triple * 300 
 
-  res.render("payment", {single: single, double: double, triple: triple, price: price, isLogged:true, checkin:req.body.checkin, checkout:req.body.checkout, guests:req.body.guests})
+  res.render("payment", {single: single, double: double, triple: triple, price: price, isLogged:true, checkin:req.body.checkin, checkout:req.body.checkout, guests:req.body.guests, email:"lol"})
 
 })
 
@@ -185,7 +185,7 @@ app.post('/succeed', function (req, res){
       console.log("User is signed in")
       const email = user.email;
 
-      let reservation = new Reservation({checkin:req.body.checkin, checkout:req.body.checkout, guests:req.body.guests, user:email, singleRoom:req.body.single, doubleRoom:req.body.double, tripleRoom:req.body.triple, price:req.body.price})
+      let reservation = new Reservation({checkin:req.body.checkin, checkout:req.body.checkout, guests:req.body.guests, user:email, singleRoom:req.body.single, doubleRoom:req.body.double, tripleRoom:req.body.triple, price:req.body.price, email:"lol"})
 
       reservationController.createReservation(reservation)
 
@@ -197,25 +197,12 @@ app.post('/succeed', function (req, res){
   });
 })
 
-app.get("/myRes",  function(req, res){
-  var user = firebase.auth().currentUser;
-    if (user) {
-      console.log("User is signed in")
-      const email = user.email;
-
-      let reservaciones = reservationController.findByEmail(email)
-      console.log(reservaciones)
-
-       res.render('reservaciones', {reservaciones: reservaciones, isLogged:true})
-
-    } else {
-      console.log("User is not signed in")
-      res.redirect("/login")
-    }
+app.post("/myRes",  reservationController.findByEmail)
+  
 
 
   
-})
+
 
 
 

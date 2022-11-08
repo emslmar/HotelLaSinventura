@@ -98,6 +98,10 @@
                       <li><a href="/login">Iniciar sesi&oacute;n</a></li>
                     <%}else{%>
                       <li><a href="/logout">Cerrar sesi&oacute;n</a></li>
+                      <form action="/myRes" method="post">
+                        <input name="email" type="mail" value="<%=email%>" hidden>
+                        <button type="submit">Ver mis reservas</button>
+                      </form>
                       <li><a href="/myRes">Ver mis Reservas</a></li>
                     <%}%>
                   </div>

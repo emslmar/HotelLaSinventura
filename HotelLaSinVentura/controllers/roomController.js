@@ -24,7 +24,7 @@ exports.allRooms = function(req, res){
             singleRooms = 1
         }
         console.log(doubleRooms)
-              res.render('showAllRooms', {Rooms: rooms, isLogged:true, checkin:req.body.checkin, checkout:req.body.checkout, guests:req.body.guests, singleRooms:singleRooms, doubleRooms:doubleRooms, tripleRooms:tripleRooms});
+              res.render('showAllRooms', {Rooms: rooms, isLogged:true, checkin:req.body.checkin, checkout:req.body.checkout, guests:req.body.guests, singleRooms:singleRooms, doubleRooms:doubleRooms, tripleRooms:tripleRooms, email:"lol"});
             
     })
     
